@@ -1907,11 +1907,6 @@ PHP_METHOD(Phalcon_Mvc_Model, _groupResult){
 	}
 	
 	/** 
-	 * Execute the query
-	 */
-	PHALCON_CALL_METHOD(&resultset, query, "execute", bind_params, bind_types);
-	
-	/** 
 	 * Pass the cache options to the query
 	 */
 	if (phalcon_array_isset_string(params, SS("cache"))) {
@@ -1919,6 +1914,11 @@ PHP_METHOD(Phalcon_Mvc_Model, _groupResult){
 		phalcon_array_fetch_string(&cache, params, SL("cache"), PH_NOISY);
 		PHALCON_CALL_METHOD(NULL, query, "cache", cache);
 	}
+	
+	/** 
+	 * Execute the query
+	 */
+	PHALCON_CALL_METHOD(&resultset, query, "execute", bind_params, bind_types);
 	
 	/** 
 	 * Return the full resultset if the query is grouped
