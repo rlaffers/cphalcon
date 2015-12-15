@@ -1279,12 +1279,12 @@ PHP_METHOD(Phalcon_Mvc_Model, query) {
 			ZEPHIR_CALL_METHOD(NULL, criteria, "__construct", NULL, 0);
 			zephir_check_call_status();
 		}
-		ZEPHIR_CALL_METHOD(NULL, criteria, "setdi", NULL, 302, dependencyInjector);
+		ZEPHIR_CALL_METHOD(NULL, criteria, "setdi", NULL, 297, dependencyInjector);
 		zephir_check_call_status();
 	}
 	ZEPHIR_INIT_VAR(_3);
 	zephir_get_called_class(_3 TSRMLS_CC);
-	ZEPHIR_CALL_METHOD(NULL, criteria, "setmodelname", NULL, 303, _3);
+	ZEPHIR_CALL_METHOD(NULL, criteria, "setmodelname", NULL, 298, _3);
 	zephir_check_call_status();
 	RETURN_CCTOR(criteria);
 
@@ -3070,9 +3070,9 @@ PHP_METHOD(Phalcon_Mvc_Model, _doLowUpdate) {
 										break;
 									}
 									if (ZEPHIR_IS_LONG(bindType, 3) || ZEPHIR_IS_LONG(bindType, 7)) {
-										ZEPHIR_CALL_FUNCTION(&_10$$24, "floatval", &_11, 304, snapshotValue);
+										ZEPHIR_CALL_FUNCTION(&_10$$24, "floatval", &_11, 299, snapshotValue);
 										zephir_check_call_status();
-										ZEPHIR_CALL_FUNCTION(&_12$$24, "floatval", &_11, 304, value);
+										ZEPHIR_CALL_FUNCTION(&_12$$24, "floatval", &_11, 299, value);
 										zephir_check_call_status();
 										changed = !ZEPHIR_IS_IDENTICAL(_10$$24, _12$$24);
 										break;
@@ -3611,7 +3611,7 @@ PHP_METHOD(Phalcon_Mvc_Model, save) {
 			object_init_ex(_8$$12, phalcon_mvc_model_validationfailed_ce);
 			ZEPHIR_CALL_METHOD(&_9$$12, this_ptr, "getmessages", NULL, 0);
 			zephir_check_call_status();
-			ZEPHIR_CALL_METHOD(NULL, _8$$12, "__construct", NULL, 305, this_ptr, _9$$12);
+			ZEPHIR_CALL_METHOD(NULL, _8$$12, "__construct", NULL, 300, this_ptr, _9$$12);
 			zephir_check_call_status();
 			zephir_throw_exception_debug(_8$$12, "phalcon/mvc/model.zep", 2884 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();
@@ -5275,7 +5275,7 @@ PHP_METHOD(Phalcon_Mvc_Model, __call) {
 	zephir_get_strval(method, method_param);
 
 
-	ZEPHIR_CALL_SELF(&records, "_invokefinder", &_0, 306, method, arguments);
+	ZEPHIR_CALL_SELF(&records, "_invokefinder", &_0, 301, method, arguments);
 	zephir_check_call_status();
 	if (Z_TYPE_P(records) != IS_NULL) {
 		RETURN_CCTOR(records);
@@ -5325,7 +5325,7 @@ PHP_METHOD(Phalcon_Mvc_Model, __callStatic) {
 	zephir_get_strval(method, method_param);
 
 
-	ZEPHIR_CALL_SELF(&records, "_invokefinder", &_0, 306, method, arguments);
+	ZEPHIR_CALL_SELF(&records, "_invokefinder", &_0, 301, method, arguments);
 	zephir_check_call_status();
 	if (Z_TYPE_P(records) == IS_NULL) {
 		ZEPHIR_INIT_VAR(_1$$3);

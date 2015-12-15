@@ -625,7 +625,7 @@ PHP_METHOD(Phalcon_Crypt, encrypt) {
 
 	zend_bool _3, _4;
 	int ZEPHIR_LAST_CALL_STATUS, _2$$9;
-	zval *text_param = NULL, *key_param = NULL, *encryptKey = NULL, *ivSize = NULL, *iv = NULL, *cipher = NULL, *mode = NULL, *blockSize = NULL, *paddingType = NULL, *padded = NULL, _0, *_5 = NULL, *_1$$8 = NULL;
+	zval *text_param = NULL, *key_param = NULL, *encryptKey = NULL, *ivSize = NULL, *iv = NULL, *cipher = NULL, *mode = NULL, *blockSize = NULL, *paddingType = NULL, *padded = NULL, *_0, *_5 = NULL, *_1$$8 = NULL;
 	zval *text = NULL, *key = NULL;
 
 	ZEPHIR_MM_GROW();
@@ -676,22 +676,22 @@ PHP_METHOD(Phalcon_Crypt, encrypt) {
 	zephir_read_property_this(&cipher, this_ptr, SL("_cipher"), PH_NOISY_CC);
 	ZEPHIR_OBS_VAR(mode);
 	zephir_read_property_this(&mode, this_ptr, SL("_mode"), PH_NOISY_CC);
-	ZEPHIR_CALL_FUNCTION(&ivSize, "mcrypt_get_iv_size", NULL, 134, cipher, mode);
+	ZEPHIR_CALL_FUNCTION(&ivSize, "mcrypt_get_iv_size", NULL, 0, cipher, mode);
 	zephir_check_call_status();
 	if (ZEPHIR_LT_LONG(ivSize, zephir_fast_strlen_ev(encryptKey))) {
 		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(phalcon_crypt_exception_ce, "Size of key is too large for this algorithm", "phalcon/crypt.zep", 320);
 		return;
 	}
-	ZEPHIR_SINIT_VAR(_0);
-	ZVAL_LONG(&_0, 2);
-	ZEPHIR_CALL_FUNCTION(&iv, "mcrypt_create_iv", NULL, 135, ivSize, &_0);
+	ZEPHIR_INIT_VAR(_0);
+	ZEPHIR_GET_CONSTANT(_0, "MCRYPT_RAND");
+	ZEPHIR_CALL_FUNCTION(&iv, "mcrypt_create_iv", NULL, 0, ivSize, _0);
 	zephir_check_call_status();
 	if (Z_TYPE_P(iv) != IS_STRING) {
 		ZEPHIR_CALL_FUNCTION(&_1$$8, "strval", NULL, 21, iv);
 		zephir_check_call_status();
 		ZEPHIR_CPY_WRT(iv, _1$$8);
 	}
-	ZEPHIR_CALL_FUNCTION(&blockSize, "mcrypt_get_block_size", NULL, 136, cipher, mode);
+	ZEPHIR_CALL_FUNCTION(&blockSize, "mcrypt_get_block_size", NULL, 0, cipher, mode);
 	zephir_check_call_status();
 	if (Z_TYPE_P(blockSize) != IS_LONG) {
 		_2$$9 = zephir_get_intval(blockSize);
@@ -714,7 +714,7 @@ PHP_METHOD(Phalcon_Crypt, encrypt) {
 	} else {
 		ZEPHIR_CPY_WRT(padded, text);
 	}
-	ZEPHIR_CALL_FUNCTION(&_5, "mcrypt_encrypt", NULL, 137, cipher, encryptKey, padded, mode, iv);
+	ZEPHIR_CALL_FUNCTION(&_5, "mcrypt_encrypt", NULL, 0, cipher, encryptKey, padded, mode, iv);
 	zephir_check_call_status();
 	ZEPHIR_CONCAT_VV(return_value, iv, _5);
 	RETURN_MM();
@@ -771,7 +771,7 @@ PHP_METHOD(Phalcon_Crypt, decrypt) {
 	zephir_read_property_this(&cipher, this_ptr, SL("_cipher"), PH_NOISY_CC);
 	ZEPHIR_OBS_VAR(mode);
 	zephir_read_property_this(&mode, this_ptr, SL("_mode"), PH_NOISY_CC);
-	ZEPHIR_CALL_FUNCTION(&ivSize, "mcrypt_get_iv_size", NULL, 134, cipher, mode);
+	ZEPHIR_CALL_FUNCTION(&ivSize, "mcrypt_get_iv_size", NULL, 0, cipher, mode);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(keySize);
 	ZVAL_LONG(keySize, zephir_fast_strlen_ev(decryptKey));
@@ -791,9 +791,9 @@ PHP_METHOD(Phalcon_Crypt, decrypt) {
 	ZVAL_LONG(&_1, 0);
 	ZEPHIR_INIT_VAR(_2);
 	zephir_substr(_2, text, 0 , zephir_get_intval(ivSize), 0);
-	ZEPHIR_CALL_FUNCTION(&decrypted, "mcrypt_decrypt", NULL, 138, cipher, decryptKey, _0, mode, _2);
+	ZEPHIR_CALL_FUNCTION(&decrypted, "mcrypt_decrypt", NULL, 0, cipher, decryptKey, _0, mode, _2);
 	zephir_check_call_status();
-	ZEPHIR_CALL_FUNCTION(&blockSize, "mcrypt_get_block_size", NULL, 136, cipher, mode);
+	ZEPHIR_CALL_FUNCTION(&blockSize, "mcrypt_get_block_size", NULL, 0, cipher, mode);
 	zephir_check_call_status();
 	ZEPHIR_OBS_VAR(paddingType);
 	zephir_read_property_this(&paddingType, this_ptr, SL("_padding"), PH_NOISY_CC);
@@ -937,7 +937,7 @@ PHP_METHOD(Phalcon_Crypt, getAvailableCiphers) {
 
 	ZEPHIR_MM_GROW();
 
-	ZEPHIR_RETURN_CALL_FUNCTION("mcrypt_list_algorithms", NULL, 139);
+	ZEPHIR_RETURN_CALL_FUNCTION("mcrypt_list_algorithms", NULL, 134);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -952,7 +952,7 @@ PHP_METHOD(Phalcon_Crypt, getAvailableModes) {
 
 	ZEPHIR_MM_GROW();
 
-	ZEPHIR_RETURN_CALL_FUNCTION("mcrypt_list_modes", NULL, 140);
+	ZEPHIR_RETURN_CALL_FUNCTION("mcrypt_list_modes", NULL, 135);
 	zephir_check_call_status();
 	RETURN_MM();
 
